@@ -2,12 +2,27 @@ angular.module('WealthyApp', ['ui.router', 'ngResource', 'FetchApi'])
 
 	.controller('wealthyPageCtrl', ['$scope', '$resource', 'Address',
 		function($scope, $resource, Address){
-
-			$scope.FetchAddresses = function(pincode){
-				$scope.AddressAtLocation = Address.getAddressDetails({'filters[pincode]' : pincode});
-				console.log("$scope.AddressAtLocation", $scope.AddressAtLocation);
+			$scope.initialize = function(){
+				$scope.isGotPincode = false;
 			}
-			$scope.FetchAddresses(560102);
+			$scope.initialize();
+			$scope.FetchAddresses = function(pincode){
+				
+				if (pincode) {
+					$scope.AddressAtLocation = Address.getAddressDetails({'filters[pincode]' : pincode});
+					console.log("$scope.AddressAtLocation", $scope.AddressAtLocation);
+					$scope.isGotPincode = true;
+				};
+				
+			}
+			$scope.multipleValue = function(addressValue){
+				if(addressValue.length >=2){
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
 
 	}])
 	

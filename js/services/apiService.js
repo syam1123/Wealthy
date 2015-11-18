@@ -10,7 +10,7 @@ angular.module('FetchApi',['ngResource'])
 				method : 'GET',
 				isArray : false,
 				transformResponse: function(data, header) {
-			          return (angular.fromJson(data));
+			          return JSON.parse(data);
 			        }
 			}
 		})

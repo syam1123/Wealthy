@@ -1,4 +1,42 @@
 <div>
-	<button ng-click="FetchAddresses(560102)">click</button>
-	{{AddressAtLocation}}
+	<div ng-show="!isGotPincode" class="pageContainer greenShade ">
+		<div class="alignCenter">
+			<p>It will be great if I get your pincode :)</p>
+			<form>
+				<div class="input-field col s6">
+					<input id="last_name" type="text" class="validate" ng-model="pincodeEntered">
+					<label for="last_name" class="label">Enter Pincode</label>
+		        </div>
+				<input type="submit" class="submitbutton" ng-click="FetchAddresses(pincodeEntered)" value="NEXT"></input>
+			</form>
+		</div>
+	</div>
+	<div ng-show="isGotPincode" class="pageContainer violetShade ">
+		<div class="alignCenter row">
+			<div class="col s12">
+				<span class="col s6">Address Line1 </span>
+			</div>
+			<div class="col s12">
+				<span class="col s6">Address Line2 </span>
+				<div class="input-field col s6" ng-if="!multipleValue(AddressAtLocation.records)">
+		         	<input class="address" value="{{AddressAtLocation.records[0].officename}}" type="text" class="validate">
+		        </div>
+				<select ng-if="multipleValue(AddressAtLocation.records)" class="col s6" ng-init="somevalue = optionss[1]" ng-options="address as address.officename for address in AddressAtLocation.records" ng-model = "selectedOffice"></select>
+			</div>
+			<div class="col s12">
+				<span class="col s6">City </span>
+				<div class="input-field col s6">
+		         	<input class="address" value="{{AddressAtLocation.records[0].divisionname}}" type="text" class="validate">
+		        </div>
+			</div>
+			
+			<div class="col s12">
+				<span class="col s6">State :</span>
+				<div class="input-field col s6">
+		         	<input class="address" value="{{AddressAtLocation.records[0].statename}}" type="text" class="validate">
+		        </div>
+
+			</div>
+		</div>
+
 </div>
